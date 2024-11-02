@@ -63,7 +63,7 @@ public void addCustomer(){
 
     }
 
-private void viewCustomer() {
+    public void viewCustomer() {
         
         String qry = "SELECT * FROM tbl_Customer";
         String[] hdrs = {"ID", "First Name", "Last Name", "Email", "Status"};

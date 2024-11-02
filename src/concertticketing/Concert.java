@@ -67,7 +67,7 @@ public void addConcert(){
 
     }
 
-private void viewConcert() {
+public void viewConcert() {
         
         String qry = "SELECT * FROM tbl_Concert";
         String[] hdrs = {"ID", "Concert Name", "Premium Price", "Regular Price", "Premium Stock", "Regular Stock", "Concert Status"};
@@ -127,6 +127,6 @@ private void viewConcert() {
         conf.deleteRecord(qry, id);
     
     }
-    
+ 
 }
     

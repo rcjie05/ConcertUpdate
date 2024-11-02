@@ -29,6 +29,10 @@ public class ConcertTicketing {
                 Concert ct = new Concert();
                 ct.cttransaction();
                 break;
+            case 3:
+                Sold so = new Sold();
+                so.stransaction();
+                break;
             case 5:
                 System.out.println("Exit Selected...type 'yes'to continue: ");
                 String resp = sc.next();
