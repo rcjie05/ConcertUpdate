@@ -60,7 +60,7 @@ public void addConcert(){
         System.out.print("Concert Status: ");
         String cstatus = sc.next();
 
-        String qry = "INSERT INTO tbl_Concert (ct_name, ct_premium, ct_regular, ct_stocks, ct_status) VALUES (?, ?, ?, ?, ?, ?)";
+        String qry = "INSERT INTO tbl_Concert (ct_name, ct_premium, ct_regular, ct_pstocks, ct_rstocks, ct_status) VALUES (?, ?, ?, ?, ?, ?)";
 
         conf.addRecord(qry, cname, premium, regular, cpstocks, crstocks, cstatus);
 

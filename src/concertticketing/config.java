@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class config {
     //Connection Method to SQLITE
@@ -68,11 +72,11 @@ public void addRecord(String sql, Object... values) {
 
             // Print the headers dynamically
             StringBuilder headerLine = new StringBuilder();
-            headerLine.append("---------------------------------------------------------------------------------------------------------\n| ");
+            headerLine.append("----------------------------------------------------------------------------------------------------------------------------------------------------------------\n| ");
             for (String header : columnHeaders) {
                 headerLine.append(String.format("%-20s | ", header)); // Adjust formatting as needed
             }
-            headerLine.append("\n-----------------------------------------------------------------------------------------------------------");
+            headerLine.append("\n------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             System.out.println(headerLine.toString());
 
@@ -85,7 +89,7 @@ public void addRecord(String sql, Object... values) {
                 }
                 System.out.println(row.toString());
             }
-            System.out.println("------------------------------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
         } catch (SQLException e) {
             System.out.println("Error retrieving records: " + e.getMessage());
@@ -198,5 +202,44 @@ public void deleteRecord(String sql, Object... values) {
         }
         return result;
     }
-    
+
+    public void viewRecords(String sqlQuery, String[] columnHeaders, String[] columnNames, Object... params) {
+    if (columnHeaders.length != columnNames.length) {
+        System.out.println("Error: Mismatch between column headers and column names.");
+        return;
+    }
+
+    try (Connection conn = this.connectDB();
+         PreparedStatement pstmt = conn.prepareStatement(sqlQuery)) {
+
+        for (int i = 0; i < params.length; i++) {
+            pstmt.setObject(i + 1, params[i]);
+        }
+
+        ResultSet rs = pstmt.executeQuery();
+
+        JTable table = new JTable(new DefaultTableModel());
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        for (String header : columnHeaders) {
+            model.addColumn(header);
+        }
+
+        while (rs.next()) {
+            Object[] rowData = new Object[columnNames.length];
+            for (int i = 0; i < columnNames.length; i++) {
+                rowData[i] = rs.getObject(columnNames[i]);
+            }
+            model.addRow(rowData);
+        }
+
+        JFrame frame = new JFrame("Records");
+        frame.add(new JScrollPane(table));
+        frame.setSize(600, 400);
+        frame.setVisible(true);
+
+    } catch (SQLException e) {
+        System.out.println("Error retrieving records: " + e.getMessage());
+    }
+}
 }

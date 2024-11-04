@@ -49,7 +49,7 @@ public void addCustomer(){
         config conf = new config();
         System.out.print("Customer First Name: ");
         String fname = sc.next();
-        System.out.print("Customer Student Last Name: ");
+        System.out.print("Customer Last Name: ");
         String lname = sc.next();
         System.out.print("Customer Email: ");
         String email = sc.next();

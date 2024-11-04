@@ -13,7 +13,7 @@ public class ConcertTicketing {
         System.out.println("");
         System.out.println("1.Customer");
         System.out.println("2.Concert");
-        System.out.println("3.Sold Tickets");
+        System.out.println("3.Orders");
         System.out.println("4.Reports");
         System.out.println("5.EXIT");
         
@@ -30,8 +30,12 @@ public class ConcertTicketing {
                 ct.cttransaction();
                 break;
             case 3:
-                Sold so = new Sold();
+                Orders so = new Orders();
                 so.stransaction();
+                break;
+            case 4:
+                Report rp = new Report();
+                rp.rtransaction();
                 break;
             case 5:
                 System.out.println("Exit Selected...type 'yes'to continue: ");
@@ -45,3 +49,4 @@ public class ConcertTicketing {
     }
     
 }
+
