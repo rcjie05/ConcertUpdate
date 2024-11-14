@@ -21,29 +21,29 @@ public class config {
     }
 
     public void addRecord(String sql, Object... values) {
-        try (Connection conn = this.connectDB(); // Use the connectDB method
+        try (Connection conn = this.connectDB();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Loop through the values and set them in the prepared statement dynamically
+
             for (int i = 0; i < values.length; i++) {
                 if (values[i] instanceof Integer) {
-                    pstmt.setInt(i + 1, (Integer) values[i]); // If the value is Integer
+                    pstmt.setInt(i + 1, (Integer) values[i]);
                 } else if (values[i] instanceof Double) {
-                    pstmt.setDouble(i + 1, (Double) values[i]); // If the value is Double
+                    pstmt.setDouble(i + 1, (Double) values[i]);
                 } else if (values[i] instanceof Float) {
-                    pstmt.setFloat(i + 1, (Float) values[i]); // If the value is Float
+                    pstmt.setFloat(i + 1, (Float) values[i]);
                 } else if (values[i] instanceof Long) {
-                    pstmt.setLong(i + 1, (Long) values[i]); // If the value is Long
+                    pstmt.setLong(i + 1, (Long) values[i]);
                 } else if (values[i] instanceof Boolean) {
-                    pstmt.setBoolean(i + 1, (Boolean) values[i]); // If the value is Boolean
+                    pstmt.setBoolean(i + 1, (Boolean) values[i]);
                 } else if (values[i] instanceof java.util.Date) {
-                    pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime())); // If the value is Date
+                    pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime()));
                 } else if (values[i] instanceof java.sql.Date) {
-                    pstmt.setDate(i + 1, (java.sql.Date) values[i]); // If it's already a SQL Date
+                    pstmt.setDate(i + 1, (java.sql.Date) values[i]);
                 } else if (values[i] instanceof java.sql.Timestamp) {
-                    pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]); // If the value is Timestamp
+                    pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]);
                 } else {
-                    pstmt.setString(i + 1, values[i].toString()); // Default to String for other types
+                    pstmt.setString(i + 1, values[i].toString());
                 }
             }
 
@@ -54,7 +54,7 @@ public class config {
         }
     }
 
-    // Dynamic view method to display records from any table
+
     public void viewRecords(String sqlQuery, String[] columnHeaders, String[] columnNames, Object... params) {
     if (columnHeaders.length != columnNames.length) {
         System.out.println("Error: Mismatch between column headers and column names.");
@@ -64,9 +64,8 @@ public class config {
     try (Connection conn = this.connectDB();
          PreparedStatement pstmt = conn.prepareStatement(sqlQuery)) {
 
-        // Set the parameters if any
+
         for (int i = 0; i < params.length; i++) {
-            // Check if the parameter is an Integer
             if (params[i] instanceof Integer) {
                 pstmt.setInt(i + 1, (Integer) params[i]);
             } else {
@@ -76,26 +75,26 @@ public class config {
 
         ResultSet rs = pstmt.executeQuery();
 
-        // Print the headers dynamically
+
         StringBuilder headerLine = new StringBuilder();
-        headerLine.append("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n| ");
+        headerLine.append("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n| ");
         for (String header : columnHeaders) {
-            headerLine.append(String.format("%-20s | ", header)); // Adjust formatting as needed
+            headerLine.append(String.format("%-20s | ", header)); 
         }
-        headerLine.append("\n------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        headerLine.append("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
         System.out.println(headerLine.toString());
 
-        // Print the rows dynamically based on the provided column names
+
         while (rs.next()) {
             StringBuilder row = new StringBuilder("| ");
             for (String colName : columnNames) {
                 String value = rs.getString(colName);
-                row.append(String.format("%-20s | ", value != null ? value : "")); // Adjust formatting
+                row.append(String.format("%-20s | ", value != null ? value : ""));
             }
             System.out.println(row.toString());
         }
-        System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
     } catch (SQLException e) {
         System.out.println("Error retrieving records: " + e.getMessage());
@@ -107,29 +106,29 @@ public class config {
     //-----------------------------------------------
 
     public void updateRecord(String sql, Object... values) {
-        try (Connection conn = this.connectDB(); // Use the connectDB method
+        try (Connection conn = this.connectDB();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Loop through the values and set them in the prepared statement dynamically
+ 
             for (int i = 0; i < values.length; i++) {
                 if (values[i] instanceof Integer) {
-                    pstmt.setInt(i + 1, (Integer) values[i]); // If the value is Integer
+                    pstmt.setInt(i + 1, (Integer) values[i]);
                 } else if (values[i] instanceof Double) {
-                    pstmt.setDouble(i + 1, (Double) values[i]); // If the value is Double
+                    pstmt.setDouble(i + 1, (Double) values[i]);
                 } else if (values[i] instanceof Float) {
-                    pstmt.setFloat(i + 1, (Float) values[i]); // If the value is Float
+                    pstmt.setFloat(i + 1, (Float) values[i]);
                 } else if (values[i] instanceof Long) {
-                    pstmt.setLong(i + 1, (Long) values[i]); // If the value is Long
+                    pstmt.setLong(i + 1, (Long) values[i]);
                 } else if (values[i] instanceof Boolean) {
-                    pstmt.setBoolean(i + 1, (Boolean) values[i]); // If the value is Boolean
+                    pstmt.setBoolean(i + 1, (Boolean) values[i]);
                 } else if (values[i] instanceof java.util.Date) {
-                    pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime())); // If the value is Date
+                    pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime()));
                 } else if (values[i] instanceof java.sql.Date) {
-                    pstmt.setDate(i + 1, (java.sql.Date) values[i]); // If it's already a SQL Date
+                    pstmt.setDate(i + 1, (java.sql.Date) values[i]); 
                 } else if (values[i] instanceof java.sql.Timestamp) {
-                    pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]); // If the value is Timestamp
+                    pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]); 
                 } else {
-                    pstmt.setString(i + 1, values[i].toString()); // Default to String for other types
+                    pstmt.setString(i + 1, values[i].toString());
                 }
             }
 
@@ -140,17 +139,17 @@ public class config {
         }
     }
     
-    // Add this method in the config class
+
     public void deleteRecord(String sql, Object... values) {
         try (Connection conn = this.connectDB();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Loop through the values and set them in the prepared statement dynamically
+
             for (int i = 0; i < values.length; i++) {
                 if (values[i] instanceof Integer) {
-                    pstmt.setInt(i + 1, (Integer) values[i]); // If the value is Integer
+                    pstmt.setInt(i + 1, (Integer) values[i]); 
                 } else {
-                    pstmt.setString(i + 1, values[i].toString()); // Default to String for other types
+                    pstmt.setString(i + 1, values[i].toString()); 
                 }
             }
 
@@ -209,44 +208,4 @@ public class config {
         return result;
     }
 
-    // Method for viewing records with a status filter
-    public void viewRecordsWithStatus(String sqlQuery, String[] columnHeaders, String[] columnNames, String status) {
-    if (columnHeaders.length != columnNames.length) {
-        System.out.println("Error: Mismatch between column headers and column names.");
-        return;
-    }
-
-    try (Connection conn = this.connectDB();
-         PreparedStatement pstmt = conn.prepareStatement(sqlQuery)) {
-
-        // Set the status parameter
-        pstmt.setString(1, status);
-
-        ResultSet rs = pstmt.executeQuery();
-
-        // Print the headers dynamically
-        StringBuilder headerLine = new StringBuilder();
-        headerLine.append("----------------------------------------------------------------------------------------------------------------------------------------------------------------\n| ");
-        for (String header : columnHeaders) {
-            headerLine.append(String.format("%-20s | ", header)); // Adjust formatting as needed
-        }
-        headerLine.append("\n------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
-        System.out.println(headerLine.toString());
-
-        // Print the rows dynamically based on the provided column names
-        while (rs.next()) {
-            StringBuilder row = new StringBuilder("| ");
-            for (String colName : columnNames) {
-                String value = rs.getString(colName);
-                row.append(String.format("%-20s | ", value != null ? value : "")); // Adjust formatting
-            }
-            System.out.println(row.toString());
-        }
-        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
-    } catch (SQLException e) {
-        System.out.println("Error retrieving records: " + e.getMessage());
-    }
-}
 }
