@@ -11,7 +11,7 @@ public class Concert {
         
         do{
         System.out.println("\n------------------------------------");
-        System.out.println("Concert Panel");
+        System.out.println("==Concert Panel==");
         System.out.println("1.ADD Concert");
         System.out.println("2.View Concert");
         System.out.println("3.Update Concert");
@@ -68,14 +68,17 @@ public void addConcert(){
     }
 
 public void viewConcert() {
-        
-        String qry = "SELECT * FROM tbl_Concert";
-        String[] hdrs = {"ID", "Concert Name", "Premium Price", "Regular Price", "Premium Stock", "Regular Stock", "Concert Status"};
-        String[] clms = {"ct_id", "ct_name", "ct_premium", "ct_regular", "ct_pstocks", "ct_rstocks", "ct_status"};
+    Scanner sc = new Scanner(System.in);
+    config conf = new config();
 
-        config conf = new config();
-        conf.viewRecords(qry, hdrs, clms);
-    }
+    String status = "Available";
+
+    String qry = "SELECT * FROM tbl_Concert WHERE ct_status = ? AND (ct_pstocks > 0 OR ct_rstocks > 0)";
+    String[] hdrs = {"ID", "Concert Name", "Premium Price", "Regular Price", "Premium Stock", "Regular Stock", "Concert Status"};
+    String[] clms = {"ct_id", "ct_name", "ct_premium", "ct_regular", "ct_pstocks", "ct_rstocks", "ct_status"};
+
+    conf.viewRecords(qry, hdrs, clms, status); 
+}
 
  private void updateConcert(){
     
@@ -129,4 +132,3 @@ public void viewConcert() {
     }
  
 }
-    

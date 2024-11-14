@@ -11,7 +11,7 @@ public class Customer {
         
         do{
         System.out.println("\n------------------------------------");
-        System.out.println("Customer Panel");
+        System.out.println("==Customer Panel==");
         System.out.println("1.ADD Customer");
         System.out.println("2.View Customer");
         System.out.println("3.Update Customer");

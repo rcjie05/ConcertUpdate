@@ -10,7 +10,7 @@ public class Report {
 
         do {
             System.out.println("\n------------------------------------");
-            System.out.println("Reports Panel");
+            System.out.println("==Reports Panel==");
             System.out.println("1. View All Customers");
             System.out.println("2. View All Concerts");
             System.out.println("3. View All Orders");
@@ -58,16 +58,17 @@ public class Report {
     }
 
     public void viewAllOrders() {
-    String qry = "SELECT tbl_Orders.o_id, tbl_Orders.c_id, tbl_Orders.ct_id, tbl_Concert.ct_name, tbl_Orders.o_type, tbl_Concert.ct_premium, tbl_Concert.ct_regular, tbl_Orders.o_due, tbl_Orders.o_date " +
-               "FROM tbl_Orders " +
-               "JOIN tbl_Concert ON tbl_Orders.ct_id = tbl_Concert.ct_id";
-    String[] hdrs = {"Order ID", "Customer ID", "Concert ID", "Concert Name", "Ticket Type", "Premium Tickets", "Regular Tickets", "Total Price", "Order Date"};
-    String[] clms = {"o_id", "c_id", "ct_id", "ct_name", "o_type", "ct_premium", "ct_regular", "o_due", "o_date"};
+        String qry = "SELECT tbl_Orders.o_id, tbl_Orders.c_id, tbl_Orders.ct_id, tbl_Concert.ct_name, tbl_Orders.o_type, tbl_Concert.ct_premium, tbl_Concert.ct_regular, tbl_Orders.o_due, tbl_Orders.o_date " +
+                   "FROM tbl_Orders " +
+                   "JOIN tbl_Concert ON tbl_Orders.ct_id = tbl_Concert.ct_id";
+        String[] hdrs = {"Order ID", "Customer ID", "Concert ID", "Concert Name", "Ticket Type", "Premium Tickets", "Regular Tickets", "Total Price", "Order Date"};
+        String[] clms = {"o_id", "c_id", "ct_id", "ct_name", "o_type", "ct_premium", "ct_regular", "o_due", "o_date"};
 
-    config conf = new config();
-    conf.viewRecords(qry, hdrs, clms);
-}
-public void viewCustomerOrders() {
+        config conf = new config();
+        conf.viewRecords(qry, hdrs, clms);
+    }
+
+    public void viewCustomerOrders() {
     Scanner sc = new Scanner(System.in);
     config conf = new config();
     Customer cs = new Customer();
@@ -81,16 +82,17 @@ public void viewCustomerOrders() {
         return;
     }
 
-    String qry = "SELECT tbl_Orders.o_id, tbl_Concert.ct_name, tbl_Concert.ct_premium, tbl_Concert.ct_regular, tbl_Orders.o_due, tbl_Orders.o_date " +
+    String qry = "SELECT tbl_Orders.o_id, tbl_Concert.ct_name, tbl_Customer.c_name, tbl_Orders.o_quantity, tbl_Orders.o_type, tbl_Orders.o_due, tbl_Orders.o_date " +
                "FROM tbl_Orders " +
                "JOIN tbl_Concert ON tbl_Orders.ct_id = tbl_Concert.ct_id " +
+               "JOIN tbl_Customer ON tbl_Orders.c_id = tbl_Customer.c_id " +
                "WHERE tbl_Orders.c_id = ?";
 
-    String[] hdrs = {"Order ID", "Concert Name", "Premium Tickets", "Regular Tickets", "Total Price", "Order Date"};
-    String[] clms = {"o_id", "ct_name", "ct_premium", "ct_regular", "o_due", "o_date"};
+    String[] hdrs = {"Order ID", "Concert Name", "Customer Name", "Quantity", "Ticket Type", "Total Price", "Order Date"};
+    String[] clms = {"o_id", "ct_name", "c_name", "o_quantity", "o_type", "o_due", "o_date"};
 
-    conf.viewRecords(qry, hdrs, clms, customerId);
+    
+    conf.viewRecords(qry, hdrs, clms, customerId); // Correct call to viewRecords
 }
     
 }
-

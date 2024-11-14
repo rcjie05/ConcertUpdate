@@ -9,7 +9,7 @@ public class ConcertTicketing {
       boolean exit = true;
       do{
         System.out.println("\n------------------------------------");  
-        System.out.println("CONCERT TICKETING");
+        System.out.println("==CONCERT TICKETING==");
         System.out.println("");
         System.out.println("1.Customer");
         System.out.println("2.Concert");
