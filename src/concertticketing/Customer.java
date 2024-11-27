@@ -51,14 +51,18 @@ public void addCustomer(){
         String fname = sc.next();
         System.out.print("Customer Last Name: ");
         String lname = sc.next();
+        System.out.println("Age: ");
+        Double age = sc.nextDouble();
+        System.out.print("Phone Number: ");
+        Double phone = sc.nextDouble();
         System.out.print("Customer Email: ");
         String email = sc.next();
         System.out.print("Customer Status: ");
         String status = sc.next();
 
-        String qry = "INSERT INTO tbl_Customer (c_name, c_lname, c_email, c_status) VALUES (?, ?, ?, ?)";
+        String qry = "INSERT INTO tbl_Customer (c_name, c_lname, c_age, c_phone, c_email, c_status) VALUES (?, ?, ?, ?)";
 
-        conf.addRecord(qry, fname, lname, email, status);
+        conf.addRecord(qry, fname, lname, age, phone, email, status);
 
 
     }
@@ -66,8 +70,8 @@ public void addCustomer(){
     public void viewCustomer() {
         
         String qry = "SELECT * FROM tbl_Customer";
-        String[] hdrs = {"ID", "First Name", "Last Name", "Email", "Status"};
-        String[] clms = {"c_id", "c_name", "c_lname", "c_email", "c_status"};
+        String[] hdrs = {"ID", "First Name", "Last Name", "Age", "Phone Number", "Email", "Status"};
+        String[] clms = {"c_id", "c_name", "c_lname", "c_age", "c_phone", "c_email", "c_status"};
 
         config conf = new config();
         conf.viewRecords(qry, hdrs, clms);
@@ -86,18 +90,22 @@ public void addCustomer(){
             id = sc.nextInt();
         }
         
-        System.out.print("Enter new First Name: ");
-        String nname = sc.next();
-        System.out.print("Enter new Last Name: ");
-        String nlname = sc.next();
-        System.out.print("Enter new Email: ");
-        String nemail = sc.next();
-        System.out.print("Enter new Status: ");
-        String nstatus = sc.next();
+        System.out.print("Customer First Name: ");
+        String fname = sc.next();
+        System.out.print("Customer Last Name: ");
+        String lname = sc.next();
+        System.out.println("Age: ");
+        Double age = sc.nextDouble();
+        System.out.print("Phone Number: ");
+        Double phone = sc.nextDouble();
+        System.out.print("Customer Email: ");
+        String email = sc.next();
+        System.out.print("Customer Status: ");
+        String status = sc.next();
         
-        String qry = "UPDATE tbl_Customer SET c_name = ?, c_lname = ?, c_email = ?, c_status = ? WHERE c_id = ?";
+        String qry = "UPDATE tbl_Customer SET c_name = ?, c_lname = ?, c_age = ?, c_phone = ?, c_email = ?, c_status = ? WHERE c_id = ?";
         
-        conf.updateRecord(qry, nname, nlname, nemail, nstatus, id);
+        conf.updateRecord(qry, fname, lname, age, phone, email, status, id);
         
     }
  
