@@ -4,13 +4,16 @@ import java.util.Scanner;
 
 public class Report {
 
+    Customer cs = new Customer();
+
     public void rtransaction() {
         Scanner sc = new Scanner(System.in);
         String response;
 
         do {
-            System.out.println("\n------------------------------------");
+            System.out.println("------------------------------------");
             System.out.println("==Reports Panel==");
+            System.out.println("------------------------------------");
             System.out.println("1. View All Customers");
             System.out.println("2. View All Concerts");
             System.out.println("3. View All Orders");
@@ -22,16 +25,16 @@ public class Report {
             Report rp = new Report();
             switch (act) {
                 case 1:
-                    rp.viewAllCustomers();
+                    rp.viewAllCustomers(); 
                     break;
                 case 2:
-                    rp.viewAllConcerts();
+                    rp.viewAllConcerts(); 
                     break;
                 case 3:
-                    rp.viewAllOrders();
+                    rp.viewAllOrders(); 
                     break;
                 case 4:
-                    rp.viewCustomerOrders();
+                    rp.viewCustomerOrders(); 
                     break;
                 case 5:
                     System.out.println("Exiting.");
@@ -63,7 +66,8 @@ public class Report {
     }
 
     public void viewAllOrders() {
-        String qry = "SELECT tbl_Orders.o_id, tbl_Customer.c_name, tbl_Orders.ct_id, tbl_Concert.ct_name, tbl_Orders.o_type, tbl_Concert.ct_premium, tbl_Concert.ct_regular, tbl_Orders.o_due, tbl_Orders.o_date " +
+        String qry = "SELECT tbl_Orders.o_id, tbl_Customer.c_name, tbl_Orders.ct_id, tbl_Concert.ct_name, tbl_Orders.o_type, tbl_Concert.ct_premium,"
+                + " tbl_Concert.ct_regular, tbl_Orders.o_due, tbl_Orders.o_date " +
                    "FROM tbl_Orders " +
                    "JOIN tbl_Concert ON tbl_Orders.ct_id = tbl_Concert.ct_id " +
                    "JOIN tbl_Customer ON tbl_Orders.c_id = tbl_Customer.c_id";
@@ -74,35 +78,45 @@ public class Report {
         conf.viewRecords(qry, hdrs, clms);
     }
 
-    public void viewCustomerOrders() {
-        Scanner sc = new Scanner(System.in);
-        config conf = new config();
+   public void viewCustomerOrders() {
+    Scanner sc = new Scanner(System.in);
+    config conf = new config();
 
-        System.out.print("Enter Customer ID: ");
-        int customerId = sc.nextInt();
+    cs.viewCustomer();
+    System.out.print("Enter Customer ID: ");
+    int customerId = sc.nextInt();
 
-        if (conf.getSingleValue("SELECT c_id FROM tbl_Customer WHERE c_id = ?", customerId) == 0) {
-            System.out.println("Customer ID not found!");
-            return;
-        }
-
-        String customerName = conf.getCustomerNameById("SELECT c_name FROM tbl_Customer WHERE c_id = ?", customerId); 
-        String customerEmail = conf.getCustomerNameById("SELECT c_email FROM tbl_Customer WHERE c_id = ?", customerId);
-        String customerStatus = conf.getCustomerNameById("SELECT c_status FROM tbl_Customer WHERE c_id = ?", customerId);
-
-        String qry = "SELECT tbl_Orders.o_id, tbl_Concert.ct_name, tbl_Orders.o_quantity, tbl_Orders.o_type, tbl_Orders.o_due, tbl_Orders.o_status, tbl_Orders.o_date " +
-               "FROM tbl_Orders " +
-               "JOIN tbl_Concert ON tbl_Orders.ct_id = tbl_Concert.ct_id " +
-               "JOIN tbl_Customer ON tbl_Orders.c_id = tbl_Customer.c_id " +
-               "WHERE tbl_Orders.c_id = ?";
-
-        String[] hdrs = {"Order ID", "Concert Name", "Quantity", "Ticket Type", "Total Price", "Order Status", "Order Date"};
-        String[] clms = {"o_id", "ct_name", "o_quantity", "o_type", "o_due", "o_status", "o_date"};
-
-        System.out.println("Customer Name: " + customerName);
-        System.out.println("Customer Email: " + customerEmail); 
-        System.out.println("Customer Status: " + customerStatus); 
-
-        conf.viewRecords(qry, hdrs, clms, customerId);
+    if (conf.getSingleValue("SELECT c_id FROM tbl_Customer WHERE c_id = ?", customerId) == 0) {
+        System.out.println("Customer ID not found!");
+        return;
     }
+
+
+    String customerFullName = conf.getCustomerNameById("SELECT c_name || ' ' || c_lname AS full_name FROM tbl_Customer WHERE c_id = ?", customerId);
+    String customerEmail = conf.getCustomerNameById("SELECT c_email FROM tbl_Customer WHERE c_id = ?", customerId);
+    String customerAge = conf.getCustomerNameById("SELECT c_age FROM tbl_Customer WHERE c_id = ?", customerId);
+    String customerPhone = conf.getCustomerNameById("SELECT c_phone FROM tbl_Customer WHERE c_id = ?", customerId);
+    String customerStatus = conf.getCustomerNameById("SELECT c_status FROM tbl_Customer WHERE c_id = ?", customerId);
+
+    String qry = "SELECT tbl_Orders.o_id, tbl_Concert.ct_name, tbl_Orders.o_quantity, tbl_Orders.o_type, tbl_Orders.o_due, tbl_Orders.o_status, tbl_Orders.o_date " +
+           "FROM tbl_Orders " +
+           "JOIN tbl_Concert ON tbl_Orders.ct_id = tbl_Concert.ct_id " +
+           "JOIN tbl_Customer ON tbl_Orders.c_id = tbl_Customer.c_id " +
+           "WHERE tbl_Orders.c_id = ?";
+
+    String[] hdrs = {"Order ID", "Concert Name", "Quantity", "Ticket Type", "Total Price", "Order Status", "Order Date"};
+    String[] clms = {"o_id", "ct_name", "o_quantity", "o_type", "o_due", "o_status", "o_date"};
+
+    System.out.println("\n");
+    System.out.println("---------------------------------------");
+    System.out.println("Customer Order");
+    System.out.println("---------------------------------------");
+    System.out.println("Customer Name: " + customerFullName);
+    System.out.println("Customer Email: " + customerEmail); 
+    System.out.println("Customer Age: " + customerAge);
+    System.out.println("Customer Phone: " + customerPhone);
+    System.out.println("Customer Status: " + customerStatus);
+
+    conf.viewRecords(qry, hdrs, clms, customerId);
+}
 }

@@ -10,8 +10,9 @@ public class Customer {
         String response;
         
         do{
-        System.out.println("\n------------------------------------");
+        System.out.println("------------------------------------");
         System.out.println("==Customer Panel==");
+        System.out.println("------------------------------------");
         System.out.println("1.ADD Customer");
         System.out.println("2.View Customer");
         System.out.println("3.Update Customer");
@@ -51,7 +52,7 @@ public void addCustomer(){
         String fname = sc.next();
         System.out.print("Customer Last Name: ");
         String lname = sc.next();
-        System.out.println("Age: ");
+        System.out.print("Age: ");
         Double age = sc.nextDouble();
         System.out.print("Phone Number: ");
         Double phone = sc.nextDouble();
@@ -60,7 +61,7 @@ public void addCustomer(){
         System.out.print("Customer Status: ");
         String status = sc.next();
 
-        String qry = "INSERT INTO tbl_Customer (c_name, c_lname, c_age, c_phone, c_email, c_status) VALUES (?, ?, ?, ?)";
+        String qry = "INSERT INTO tbl_Customer (c_name, c_lname, c_age, c_phone, c_email, c_status) VALUES (?, ?, ?, ?, ?, ?)";
 
         conf.addRecord(qry, fname, lname, age, phone, email, status);
 
@@ -94,7 +95,7 @@ public void addCustomer(){
         String fname = sc.next();
         System.out.print("Customer Last Name: ");
         String lname = sc.next();
-        System.out.println("Age: ");
+        System.out.print("Age: ");
         Double age = sc.nextDouble();
         System.out.print("Phone Number: ");
         Double phone = sc.nextDouble();

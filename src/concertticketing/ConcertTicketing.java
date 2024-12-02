@@ -8,11 +8,12 @@ public class ConcertTicketing {
        Scanner sc = new Scanner(System.in);
       boolean exit = true;
       do{
-        System.out.println("\n------------------------------------");  
+        System.out.println("------------------------------------");  
         System.out.println("==CONCERT TICKETING==");
+        System.out.println("------------------------------------");
         System.out.println("");
-        System.out.println("1.Customer");
-        System.out.println("2.Concert");
+        System.out.println("1.Concert");
+        System.out.println("2.Customer");
         System.out.println("3.Orders");
         System.out.println("4.Reports");
         System.out.println("5.EXIT");
@@ -22,12 +23,12 @@ public class ConcertTicketing {
         
         switch(action){
             case 1:
-                Customer cs = new Customer();
-                cs.ctransaction();
-                break;
-            case 2:
                 Concert ct = new Concert();
                 ct.cttransaction();
+                break;
+            case 2:
+                Customer cs = new Customer();
+                cs.ctransaction();
                 break;
             case 3:
                 Orders so = new Orders();

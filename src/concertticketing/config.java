@@ -49,7 +49,6 @@ public class config {
             }
 
             pstmt.executeUpdate();
-            System.out.println("Record added successfully!");
         } catch (SQLException e) {
             System.out.println("Error adding record: " + e.getMessage());
         }
@@ -129,7 +128,6 @@ public class config {
             }
 
             pstmt.executeUpdate();
-            System.out.println("Record updated successfully!");
         } catch (SQLException e) {
             System.out.println("Error updating record: " + e.getMessage());
         }
@@ -148,7 +146,6 @@ public class config {
             }
 
             pstmt.executeUpdate();
-            System.out.println("Record deleted successfully!");
         } catch (SQLException e) {
             System.out.println("Error deleting record: " + e.getMessage());
         }

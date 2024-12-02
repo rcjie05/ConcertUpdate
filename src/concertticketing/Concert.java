@@ -10,8 +10,9 @@ public class Concert {
         String response;
         
         do{
-        System.out.println("\n------------------------------------");
+        System.out.println("------------------------------------");
         System.out.println("==Concert Panel==");
+        System.out.println("------------------------------------");
         System.out.println("1.ADD Concert");
         System.out.println("2.View Concert");
         System.out.println("3.Update Concert");
@@ -106,7 +107,8 @@ public void viewConcert() {
         System.out.print("Enter New Concert Status: ");
         String cstatus = sc.next();
         
-        String qry = "UPDATE tbl_Concert SET ct_name = ?, ct_premium = ?, ct_regular = ?, ct_pstocks = ?, ct_rstocks = ?, ct_status = ? WHERE ct_id = ?";
+        String qry = "UPDATE tbl_Concert SET ct_name = ?, ct_premium = ?, ct_regular = ?, ct_pstocks = ?, ct_rstocks = ?, ct_status = ? "
+                + "WHERE ct_id = ?";
         
         conf.updateRecord(qry, cname, premium, regular, cpstocks, crstocks, cstatus, id);
         

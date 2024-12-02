@@ -11,8 +11,9 @@ public class Orders {
         String response;
         
         do{
-        System.out.println("\n------------------------------------");
+        System.out.println("------------------------------------");
         System.out.println("==Order Tickets Panel==");
+        System.out.println("------------------------------------");
         System.out.println("1.ADD Orders");
         System.out.println("2.View Order");
         System.out.println("3.Update Order");
@@ -143,7 +144,8 @@ public class Orders {
                 
                 String status = "Pending";
                 
-                String soldqry = "INSERT INTO tbl_Orders(c_id, ct_id, o_type, o_quantity, o_due, o_rcash, o_date, o_status)VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                String soldqry = "INSERT INTO tbl_Orders(c_id, ct_id, o_type, o_quantity, o_due, o_rcash, o_date, o_status)"
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 
                 conf.addRecord(soldqry, cid, ctid, ticketType, quantity, due, rcash, date, status);
                 
@@ -158,7 +160,8 @@ public class Orders {
     }
     
    public void viewOrder() {
-    String qry = "SELECT tbl_Orders.o_id, tbl_Customer.c_name, tbl_Customer.c_lname, tbl_Concert.ct_name, tbl_Orders.o_type, tbl_Orders.o_due, tbl_Orders.o_quantity, tbl_Orders.o_date, tbl_Orders.o_status " +
+    String qry = "SELECT tbl_Orders.o_id, tbl_Customer.c_name, tbl_Customer.c_lname, tbl_Concert.ct_name, "
+            + "tbl_Orders.o_type, tbl_Orders.o_due, tbl_Orders.o_quantity, tbl_Orders.o_date, tbl_Orders.o_status " +
                "FROM tbl_Orders " +
                "JOIN tbl_Customer ON tbl_Customer.c_id = tbl_Orders.c_id " +
                "JOIN tbl_Concert ON tbl_Concert.ct_id = tbl_Orders.ct_id";
