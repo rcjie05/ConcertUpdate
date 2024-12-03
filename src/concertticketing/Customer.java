@@ -97,7 +97,7 @@ public class Customer {
                 System.out.println("Invalid input. Please enter a valid phone number (number).");
                 sc.next();
             }
-            phone = sc.nextDouble();
+            phone = sc.nextDouble();                                    
             sc.nextLine();
             if (phone <= 0) {
                 System.out.println("Phone number must be a positive number. Please enter a valid phone number.");
@@ -106,12 +106,22 @@ public class Customer {
 
         System.out.print("Customer Email: ");
         String email = sc.next();
+                                
+        while (!isValidEmail(email)) {
+            System.out.println("Invalid email format. Please enter a valid email ending with @yahoo.com, @gmail.com, or @hotmail.com");
+            email = sc.next();
+        }
+
         System.out.print("Customer Status: ");
         String status = sc.next();
 
         String qry = "INSERT INTO tbl_Customer (c_name, c_lname, c_age, c_phone, c_email, c_status) VALUES (?, ?, ?, ?, ?, ?)";
 
         conf.addRecord(qry, fname, lname, age, phone, email, status);
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.endsWith("@yahoo.com") || email.endsWith("@gmail.com") || email.endsWith("@hotmail.com");
     }
 
     public void viewCustomer() {
@@ -150,7 +160,6 @@ public class Customer {
         String lname = sc.next();
         System.out.print("Age: ");
 
-
         double age = 0;
         do {
             while (!sc.hasNextDouble()) {
@@ -181,6 +190,12 @@ public class Customer {
 
         System.out.print("Customer Email: ");
         String email = sc.next();
+
+        while (!isValidEmail(email)) {
+            System.out.println("Invalid email format. Please enter a valid email ending with @yahoo.com, @gmail.com, or @hotmail.com");
+            email = sc.next();
+        }
+
         System.out.print("Customer Status: ");
         String status = sc.next();
 
